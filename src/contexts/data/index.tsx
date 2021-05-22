@@ -6,8 +6,8 @@ import React, {
     SetStateAction,
 } from 'react';
 
-import { TypeOpp } from '../../models/opp';
-import { TypePost } from '../../models/post';
+import { TypeAddOpp, TypeOpp } from '../../models/opp';
+import { TypePost, TypePostReq } from '../../models/post';
 
 import { oppApi, postApi } from '../../services';
 
@@ -18,7 +18,13 @@ type TypeDataContext = {
     posts: TypePost[];
     loading: boolean;
     loadOpps: (orgId: string) => void;
+    addOpp: (newOpp: TypeAddOpp, images?: File[]) => Promise<boolean>;
+    removeOpp: (oppId: string) => Promise<boolean>;
+    toggleOpp: () => void;
+    editOpp: (oppId: string, newData: TypeOpp) => Promise<boolean>;
     loadPosts: (orgId: string) => void;
+    addPost: (newPost: TypePostReq, imgae?: File) => Promise<boolean>;
+    removePost: (postId: string) => void;
 };
 
 const DataContext = createContext<TypeDataContext>({} as TypeDataContext);
@@ -29,11 +35,11 @@ export const DataProvider: React.FC = ({ children }) => {
     const [posts, setPosts] = useState<TypePost[]>([]);
     const [loading, setLoading] = useState<boolean>(false);
 
-    const loadOpps = useCallback(async (orgId: string) => {
+    const loadOpps = useCallback(async () => {
         try {
             setLoading(true);
 
-            const { data } = await oppApi.getOpps(orgId);
+            const { data } = await oppApi.getOpps();
 
             setOpps(data);
         } catch (err) {
@@ -43,16 +49,103 @@ export const DataProvider: React.FC = ({ children }) => {
         }
     }, []);
 
-    const loadPosts = useCallback(async (orgId: string) => {
+    const addOpp = useCallback(
+        async (newOpp: TypeAddOpp, images?: File[]): Promise<boolean> => {
+            try {
+                const { data } = await oppApi.addOpp(newOpp);
+
+                if (images) {
+                    const formData = new FormData();
+                    images.forEach(image => {
+                        formData.append('image', image, image.name);
+                    });
+
+                    await oppApi.uploadImages(data, formData);
+                }
+
+                return Promise.resolve(true);
+            } catch (err) {
+                console.log(err);
+                return Promise.resolve(false);
+            }
+        },
+        []
+    );
+
+    const removeOpp = useCallback(async (oppId: string): Promise<boolean> => {
+        try {
+            await oppApi.removeOpp(oppId);
+
+            return Promise.resolve(true);
+        } catch (err) {
+            console.log(err);
+            return Promise.resolve(false);
+        }
+    }, []);
+
+    const toggleOpp = useCallback(async () => {
+        try {
+            if (opp!.open) await oppApi.closeOpp(opp!.id);
+            else await oppApi.openOpp(opp!.id);
+            setOpp({ ...opp!, open: !opp!.open });
+        } catch (err) {
+            console.log(err);
+        }
+    }, [opp]);
+
+    const editOpp = useCallback(
+        async (oppId: string, newData: TypeOpp): Promise<boolean> => {
+            try {
+                await oppApi.editOpp(oppId, newData);
+                return Promise.resolve(true);
+            } catch (err) {
+                console.log(err);
+                return Promise.resolve(false);
+            }
+        },
+        []
+    );
+
+    const loadPosts = useCallback(async () => {
         try {
             setLoading(true);
 
-            const { data } = await postApi.getPosts(orgId);
+            const { data } = await postApi.getPosts();
             setPosts(data);
         } catch (err) {
             console.log(err);
         } finally {
             setLoading(false);
+        }
+    }, []);
+
+    const addPost = useCallback(
+        async (newPost: TypePostReq, image?: File): Promise<boolean> => {
+            try {
+                const { data } = await postApi.addPost(newPost);
+
+                if (image) {
+                    const formData = new FormData();
+                    formData.append('image', image, image.name);
+
+                    await postApi.uploadPostImg(data, formData);
+                }
+
+                return Promise.resolve(true);
+            } catch (err) {
+                console.log(err);
+                return Promise.resolve(false);
+            }
+        },
+        []
+    );
+
+    const removePost = useCallback(async (postId: string) => {
+        try {
+            await postApi.removePost(postId);
+            loadPosts();
+        } catch (err) {
+            console.log(err);
         }
     }, []);
 
@@ -65,7 +158,13 @@ export const DataProvider: React.FC = ({ children }) => {
                 posts,
                 loading,
                 loadOpps,
+                addOpp,
+                removeOpp,
+                toggleOpp,
+                editOpp,
                 loadPosts,
+                addPost,
+                removePost,
             }}
         >
             {children}

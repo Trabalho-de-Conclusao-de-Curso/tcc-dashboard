@@ -16,7 +16,7 @@ const urls = {
 const oppApi = {
     getOpps: () => api.get<TypeOpp[]>(urls.getOpps),
 
-    addOpp: (data: TypeAddOpp) => api.post(urls.addOpp, data),
+    addOpp: (data: TypeAddOpp) => api.post<string>(urls.addOpp, data),
 
     removeOpp: (oppId: string) => api.post(urls.removeOpp + oppId),
 

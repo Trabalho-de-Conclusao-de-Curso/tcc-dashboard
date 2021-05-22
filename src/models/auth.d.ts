@@ -35,3 +35,13 @@ export type TypeLoginRes = {
     token: string;
     userData: TypeUser;
 };
+
+export type TypeToken = {
+    exp: number;
+    email_verified: boolean;
+};
+
+export type TypeRegisterRes = {
+    error?: string;
+    success: bollean;
+};

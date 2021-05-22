@@ -17,7 +17,8 @@ const postApi = {
 
     removePost: (postId: string) => api.post(urls.removePost + postId),
 
-    uploadPostImg: (postId: string) => api.post(urls.uploadPostImg + postId),
+    uploadPostImg: (postId: string, data: FormData) =>
+        api.post(urls.uploadPostImg + postId, data),
 };
 
 export default postApi;
