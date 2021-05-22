@@ -32,8 +32,8 @@ export const UiProvider: React.FC = ({ children }) => {
         const loadStoragedData = async () => {
             setLoading(true);
 
-            //Get theme data from local storage
-            const themeData = localStorage.getItem(tokenKey + 'theme');
+            // Get theme data from local storage
+            const themeData = localStorage.getItem(`${tokenKey}theme`);
 
             if (themeData !== null)
                 setTheme(themeData === 'light' ? themeLight : themeDark);
@@ -49,7 +49,7 @@ export const UiProvider: React.FC = ({ children }) => {
     }, [language]);
 
     useEffect(() => {
-        localStorage.setItem(tokenKey + 'theme', theme.title);
+        localStorage.setItem(`${tokenKey}theme`, theme.title);
     }, [theme]);
 
     const toggleTheme = useCallback(() => {

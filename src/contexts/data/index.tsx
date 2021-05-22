@@ -140,14 +140,17 @@ export const DataProvider: React.FC = ({ children }) => {
         []
     );
 
-    const removePost = useCallback(async (postId: string) => {
-        try {
-            await postApi.removePost(postId);
-            loadPosts();
-        } catch (err) {
-            console.log(err);
-        }
-    }, []);
+    const removePost = useCallback(
+        async (postId: string) => {
+            try {
+                await postApi.removePost(postId);
+                loadPosts();
+            } catch (err) {
+                console.log(err);
+            }
+        },
+        [loadPosts]
+    );
 
     return (
         <DataContext.Provider

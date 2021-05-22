@@ -1,9 +1,10 @@
-import pt_br from './pt-br';
+import ptBr from './pt-br';
+import { TypeStrings } from '../../models/ui';
 
 const getStrings = (language: string): TypeStrings => {
     switch (language) {
         default:
-            return pt_br;
+            return ptBr;
     }
 };
 

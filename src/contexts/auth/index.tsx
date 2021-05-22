@@ -15,7 +15,7 @@ type AuthContextData = {
     user: TypeUser | null;
     logged: boolean;
     loading: boolean;
-    editUser: (data: TypeUser, photo?: any) => Promise<boolean>;
+    editUser: (data: TypeUser, photo?: File) => Promise<boolean>;
     logout: () => void;
     login: (data: TypeLoginData) => void;
     register: (data: TypeRegisterData) => Promise<TypeRegisterRes>;
@@ -30,16 +30,40 @@ export const AuthProvider: React.FC = ({ children }) => {
     const [loading, setLoading] = useState(false);
     const [logged, setLogged] = useState(false);
 
+    const validateToken = (token: string | null): boolean => {
+        if (!token) return false;
+
+        const decodedToken = jwtDecode<TypeToken>(token);
+        if (decodedToken.exp * 1000 < Date.now() && decodedToken.email_verified)
+            return false;
+
+        return true;
+    };
+
+    const updateUser = async (
+        newUser: TypeUser | null,
+        token?: string | null
+    ) => {
+        localStorage.setItem(`${tokenKey}userData`, JSON.stringify(newUser));
+
+        if (token !== undefined) {
+            localStorage.setItem(`${tokenKey}authToken`, JSON.stringify(token));
+            api.defaults.headers.common.Authorization = token;
+        }
+
+        setUser(newUser);
+    };
+
     useEffect(() => {
         const loadStoragedData = async () => {
             setLoading(true);
 
-            const token = localStorage.getItem(tokenKey + 'authToken');
+            const token = localStorage.getItem(`${tokenKey}authToken`);
 
             if (validateToken(token)) {
-                api.defaults.headers.common['Authorization'] = token;
+                api.defaults.headers.common.Authorization = token;
 
-                const userData = localStorage.getItem(tokenKey + 'userData');
+                const userData = localStorage.getItem(`${tokenKey}userData`);
                 setUser(userData ? JSON.parse(userData) : null);
             } else updateUser(null, null);
 
@@ -53,27 +77,14 @@ export const AuthProvider: React.FC = ({ children }) => {
         setLogged(user !== null);
     }, [user]);
 
-    const updateUser = async (
-        newUser: TypeUser | null,
-        token?: string | null
-    ) => {
-        localStorage.setItem(tokenKey + 'userData', JSON.stringify(newUser));
-
-        if (token !== undefined) {
-            localStorage.setItem(tokenKey + 'authToken', JSON.stringify(token));
-            api.defaults.headers.common['Authorization'] = token;
-        }
-
-        setUser(newUser);
-    };
-
     const editUser = useCallback(
         async (
             newUser: TypeUser,
             photo: File | undefined
         ): Promise<boolean> => {
-            let auxData = newUser;
             try {
+                const auxData = newUser;
+
                 if (photo) {
                     const formData = new FormData();
                     formData.append('image', photo, photo.name);
@@ -118,7 +129,7 @@ export const AuthProvider: React.FC = ({ children }) => {
         setLoading(false);
     }, []);
 
-    //TODO: implements Promise resolve errors
+    // TODO: implements Promise resolve errors
     const register = useCallback(
         async (data: TypeRegisterData): Promise<TypeRegisterRes> => {
             try {
@@ -135,16 +146,6 @@ export const AuthProvider: React.FC = ({ children }) => {
         },
         []
     );
-
-    const validateToken = (token: string | null): boolean => {
-        if (!token) return false;
-
-        const decodedToken = jwtDecode<TypeToken>(token);
-        if (decodedToken.exp * 1000 < Date.now() && decodedToken.email_verified)
-            return false;
-
-        return true;
-    };
 
     return (
         <AuthContext.Provider

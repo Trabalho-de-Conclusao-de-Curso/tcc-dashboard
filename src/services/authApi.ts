@@ -10,8 +10,8 @@ const defaultUrl = 'organization/';
 
 const urls = {
     registerUser: 'signUp',
-    editUser: defaultUrl + 'edit',
-    changePhoto: defaultUrl + 'logo',
+    editUser: `${defaultUrl}edit`,
+    changePhoto: `${defaultUrl}logo`,
     login: 'signIn',
     logout: 'signOut',
 };
