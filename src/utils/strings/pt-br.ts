@@ -12,6 +12,10 @@ export default {
     alreadyRegistered: 'Já é cadastrado?',
     confirmPassword: 'Confirmar Senha',
 
+    opportunities: 'Oportunidades',
+    feed: 'Feed',
+    profile: 'Perfil',
+
     hello: 'Olá, ',
     howDoYouWannaHelp: 'Quais causas você quer ajudar?',
 

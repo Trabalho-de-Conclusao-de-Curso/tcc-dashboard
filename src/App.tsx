@@ -24,7 +24,7 @@ const App: React.FC = () => {
             <GlobalCss />
             <Router>
                 <Switch>
-                    <Route path="/account" component={Profile} />
+                    <Route path="/profile" component={Profile} />
                     <Route exact path="/" component={Opps} />
                     <Route path="/opportunity/:id" component={Opp} />
                     <Route path="/feed" component={Feed} />
