@@ -18,10 +18,8 @@ export type TypeInterests = {
 };
 
 export type TypeLoginData = {
-    name: string;
     email: string;
-    id: string;
-    photoUrl: string;
+    password: string;
 };
 
 export type TypeRegisterData = {
@@ -42,6 +40,6 @@ export type TypeToken = {
 };
 
 export type TypeRegisterRes = {
-    error?: string;
+    error?: number;
     success: bollean;
 };

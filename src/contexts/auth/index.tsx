@@ -17,7 +17,7 @@ type AuthContextData = {
     loading: boolean;
     editUser: (data: TypeUser, photo?: File) => Promise<boolean>;
     logout: () => void;
-    login: (data: TypeLoginData) => void;
+    login: (data: TypeLoginData) => Promise<TypeRegisterRes>;
     register: (data: TypeRegisterData) => Promise<TypeRegisterRes>;
 };
 
@@ -31,6 +31,7 @@ export const AuthProvider: React.FC = ({ children }) => {
     const [logged, setLogged] = useState(false);
 
     const validateToken = (token: string | null): boolean => {
+        if (token === 'null') return false;
         if (!token) return false;
 
         const decodedToken = jwtDecode<TypeToken>(token);
@@ -47,7 +48,10 @@ export const AuthProvider: React.FC = ({ children }) => {
         localStorage.setItem(`${tokenKey}userData`, JSON.stringify(newUser));
 
         if (token !== undefined) {
-            localStorage.setItem(`${tokenKey}authToken`, JSON.stringify(token));
+            localStorage.setItem(
+                `${tokenKey}authToken`,
+                token === null ? JSON.stringify(token) : token
+            );
             api.defaults.headers.common.Authorization = token;
         }
 
@@ -59,7 +63,6 @@ export const AuthProvider: React.FC = ({ children }) => {
             setLoading(true);
 
             const token = localStorage.getItem(`${tokenKey}authToken`);
-
             if (validateToken(token)) {
                 api.defaults.headers.common.Authorization = token;
 
@@ -104,21 +107,27 @@ export const AuthProvider: React.FC = ({ children }) => {
         []
     );
 
-    const login = useCallback(async (data: TypeLoginData) => {
-        try {
-            setLoading(true);
+    const login = useCallback(
+        async (data: TypeLoginData): Promise<TypeRegisterRes> => {
+            try {
+                const {
+                    data: { token, userData },
+                } = await authApi.login(data);
 
-            const {
-                data: { token, userData },
-            } = await authApi.login(data);
+                if (validateToken(token)) {
+                    updateUser(userData, token);
+                    return Promise.resolve({ success: true });
+                }
 
-            if (validateToken(token)) updateUser(userData, token);
-        } catch ({ message }) {
-            console.log(`Login Error: ${message}`);
-        } finally {
-            setLoading(false);
-        }
-    }, []);
+                return Promise.resolve({ success: false, error: 4 });
+            } catch (err) {
+                console.log(err);
+                const { code } = err.response.data;
+                return Promise.resolve({ success: false, error: code });
+            }
+        },
+        []
+    );
 
     const logout = useCallback(async () => {
         setLoading(true);
@@ -137,9 +146,9 @@ export const AuthProvider: React.FC = ({ children }) => {
 
                 return Promise.resolve({ success: true });
             } catch (err) {
-                console.log(err);
+                const { code } = err.response.data;
                 return Promise.resolve({
-                    error: 'have an error',
+                    error: code,
                     success: false,
                 });
             }

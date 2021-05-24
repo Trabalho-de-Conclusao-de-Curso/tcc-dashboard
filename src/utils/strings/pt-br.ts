@@ -1,9 +1,16 @@
 export default {
     appName: 'tcc-app',
 
-    signIn: 'ENTRAR',
+    signIn: 'Acessar',
     signInFacebook: 'Entrar com Facebook',
     signInGoogle: 'Entrar com Google',
+    password: 'Senha',
+    login: 'Login',
+    welcome: 'Bem Vindo',
+    newHere: 'Novo por aqui?',
+    signUp: 'Cadastre-se',
+    alreadyRegistered: 'Já é cadastrado?',
+    confirmPassword: 'Confirmar Senha',
 
     hello: 'Olá, ',
     howDoYouWannaHelp: 'Quais causas você quer ajudar?',
@@ -67,4 +74,12 @@ export default {
     back: 'Voltar',
 
     mustNotBeEmpty: 'O campo precisa ser preenchido',
+    passwordsMustMatch: 'As senhas precisam coincidir',
+    somethingWentWrong: 'Algo de errado aconteceu',
+    invalidEmail: 'Email inválido',
+    emailAlreadyUsed: 'Email já está em uso',
+    weakPassword: 'Senha muito fraca',
+    tooManyTries: 'Muitas tentativas foram feitas, tente novamente mais tarde',
+    wrongEmailOrPassword: 'Email ou senha inválidos',
+    verifyEmail: 'Email não verificado',
 };
