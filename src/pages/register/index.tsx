@@ -149,7 +149,7 @@ const Index: React.FC = () => {
                     <LblWelcome>{strings.welcome}</LblWelcome>
                     <LblRegister>
                         {`${strings.alreadyRegistered} `}
-                        <Link href="/register">{strings.signIn}</Link>
+                        <Link href="/login">{strings.signIn}</Link>
                     </LblRegister>
                 </SideView>
             </Container>
