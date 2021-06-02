@@ -40,6 +40,7 @@ export default {
     languages: 'Idiomas',
     formation: 'Formação',
 
+    edit: 'Editar',
     editProfile: 'Editar Perfil',
     disconnect: 'Desconectar',
 

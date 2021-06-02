@@ -17,7 +17,7 @@ type TypeDataContext = {
     setOpp: Dispatch<SetStateAction<TypeOpp | null>>;
     posts: TypePost[];
     loading: boolean;
-    loadOpps: (orgId: string) => void;
+    loadOpps: () => void;
     addOpp: (newOpp: TypeAddOpp, images?: File[]) => Promise<boolean>;
     removeOpp: (oppId: string) => Promise<boolean>;
     toggleOpp: () => void;

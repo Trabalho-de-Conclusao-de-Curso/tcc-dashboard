@@ -1,22 +1,33 @@
 import React, { useEffect } from 'react';
-import useAuth from '../../contexts/auth/useAuth';
+import { Add as AddIcon } from '@material-ui/icons';
 import useData from '../../contexts/data/useData';
 
 import AuthLayout from '../../layouts/authLyt';
+import OppCard from '../../components/oppCard';
 
-const index: React.FC = () => {
-    const { user } = useAuth();
+import { Container, CardGrid, AddButton } from './styles';
+
+const Index: React.FC = () => {
     const { loadOpps, opps } = useData();
 
     useEffect(() => {
-        loadOpps(user!.id);
-    }, []);
+        loadOpps();
+    }, [loadOpps]);
 
     return (
         <AuthLayout>
-            <div>Opps</div>
+            <Container container direction="row" justify="center">
+                {opps.map((opp, index) => (
+                    <CardGrid item md={9}>
+                        <OppCard opp={opp} key={index} />
+                    </CardGrid>
+                ))}
+            </Container>
+            <AddButton color="primary" aria-label="add">
+                <AddIcon />
+            </AddButton>
         </AuthLayout>
     );
 };
 
-export default index;
+export default Index;

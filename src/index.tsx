@@ -1,8 +1,13 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import '@fontsource/roboto-mono';
+import axios from 'axios';
+
 import App from './App';
 import AppProvider from './AppProvider';
-import '@fontsource/roboto-mono';
+
+axios.defaults.baseURL =
+    'https://us-central1-socialep-3bdd5.cloudfunctions.net/api/';
 
 ReactDOM.render(
     <React.StrictMode>

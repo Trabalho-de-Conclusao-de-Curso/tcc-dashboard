@@ -52,7 +52,7 @@ export const AuthProvider: React.FC = ({ children }) => {
                 `${tokenKey}authToken`,
                 token === null ? JSON.stringify(token) : token
             );
-            api.defaults.headers.common.Authorization = token;
+            api.defaults.headers.common['Authorization'] = `Bearer ${token}`;
         }
 
         setUser(newUser);
@@ -64,7 +64,9 @@ export const AuthProvider: React.FC = ({ children }) => {
 
             const token = localStorage.getItem(`${tokenKey}authToken`);
             if (validateToken(token)) {
-                api.defaults.headers.common.Authorization = token;
+                api.defaults.headers.common[
+                    'Authorization'
+                ] = `Bearer ${token}`;
 
                 const userData = localStorage.getItem(`${tokenKey}userData`);
                 setUser(userData ? JSON.parse(userData) : null);
