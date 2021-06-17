@@ -42,6 +42,11 @@ export default {
 
     createOpportunity: 'Crirar Oportunidade',
     description: 'Descrição',
+    addImages: 'Adicionar Imagens',
+    continue: 'Continuar',
+    previous: 'Voltar',
+    finish: 'Finalizar',
+    selectInterests: 'Selecionar Interesses',
 
     edit: 'Editar',
     editProfile: 'Editar Perfil',
@@ -52,6 +57,8 @@ export default {
     requirements: 'Requisitos',
     address: 'Endereço',
     periodAndDuration: 'Período e Duração',
+    period: 'Período',
+    duration: 'Duration',
     socialProject: 'Projeto Social',
     socialProjInfo:
         'Informações sobre a ONG, instituição ou projeto social que disponibilizou a vaga.',
@@ -90,4 +97,6 @@ export default {
     tooManyTries: 'Muitas tentativas foram feitas, tente novamente mais tarde',
     wrongEmailOrPassword: 'Email ou senha inválidos',
     verifyEmail: 'Email não verificado',
+    mustSelectOneImg: 'Selecione ao menos uma imagem',
+    mustSelectOneInt: 'Selecione ao menos um interesse',
 };

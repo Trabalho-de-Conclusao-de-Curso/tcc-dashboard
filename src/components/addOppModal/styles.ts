@@ -1,9 +1,9 @@
 import styled from 'styled-components';
-import { Typography, Paper } from '@material-ui/core';
+import { Typography, Paper, Button } from '@material-ui/core';
 
 export const Container = styled(Paper)`
     width: 50vw;
-    height: 80vh;
+    height: 60vh;
     padding: 10px;
     position: absolute;
     top: 50%;
@@ -20,9 +20,14 @@ export const Content = styled.div`
 `;
 
 export const ButtonsView = styled.div`
-    height: 50px;
-    background-color: red;
+    display: flex;
     width: 100%;
+    justify-content: space-between;
+    flex-direction: row;
+`;
+
+export const Btn = styled(Button)`
+    width: 100px;
 `;
 
 export const LblTitle = styled(Typography)`

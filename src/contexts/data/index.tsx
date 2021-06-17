@@ -54,18 +54,21 @@ export const DataProvider: React.FC = ({ children }) => {
             try {
                 const { data } = await oppApi.addOpp(newOpp);
 
-                if (images) {
+                if (images && images.length > 0) {
                     const formData = new FormData();
                     images.forEach(image => {
                         formData.append('image', image, image.name);
                     });
 
-                    await oppApi.uploadImages(data, formData);
+                    console.log(data);
+                    const res = await oppApi.uploadImages(data, formData);
+                    console.log(res);
                 }
 
                 return Promise.resolve(true);
             } catch (err) {
                 console.log(err);
+
                 return Promise.resolve(false);
             }
         },
