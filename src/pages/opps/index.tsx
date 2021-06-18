@@ -20,7 +20,7 @@ const Index: React.FC = () => {
     }, [loadOpps]);
 
     const handleClick = (opp: TypeOpp) => {
-        setOpp(opp);
+        setOpp({ ...opp, registrations: [] });
         history.push(`/opportunity/${opp.id}`);
     };
 

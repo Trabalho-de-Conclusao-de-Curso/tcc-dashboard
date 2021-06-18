@@ -9,7 +9,7 @@ import React, {
 import { TypeAddOpp, TypeOpp } from '../../models/opp';
 import { TypePost, TypePostReq } from '../../models/post';
 
-import { oppApi, postApi } from '../../services';
+import { oppApi, postApi, registrationsApi } from '../../services';
 
 type TypeDataContext = {
     opps: TypeOpp[];
@@ -25,6 +25,7 @@ type TypeDataContext = {
     loadPosts: (orgId: string) => void;
     addPost: (newPost: TypePostReq, imgae?: File) => Promise<boolean>;
     removePost: (postId: string) => void;
+    loadRegistrations: () => void;
 };
 
 const DataContext = createContext<TypeDataContext>({} as TypeDataContext);
@@ -109,6 +110,16 @@ export const DataProvider: React.FC = ({ children }) => {
         []
     );
 
+    const loadRegistrations = useCallback(async () => {
+        if (!opp) return;
+        try {
+            const { data } = await registrationsApi.getRegistrations(opp.id);
+            setOpp({ ...opp, registrations: data.registrations });
+        } catch (err) {
+            console.log(err);
+        }
+    }, [opp]);
+
     const loadPosts = useCallback(async () => {
         try {
             setLoading(true);
@@ -171,6 +182,7 @@ export const DataProvider: React.FC = ({ children }) => {
                 loadPosts,
                 addPost,
                 removePost,
+                loadRegistrations,
             }}
         >
             {children}

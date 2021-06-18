@@ -1,7 +1,6 @@
 import React from 'react';
 import useUi from '../../contexts/ui/useUi';
 
-import { TypeUser } from '../../models/auth';
 import { TypeOpp } from '../../models/opp';
 
 import InterestsSection from '../interestsSection';
