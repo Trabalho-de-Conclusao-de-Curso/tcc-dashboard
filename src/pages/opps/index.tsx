@@ -29,12 +29,8 @@ const Index: React.FC = () => {
             <AddOppModal open={addModal} onClose={() => setAddModal(false)} />
             <Container container direction="row" justify="center">
                 {opps.map((opp, index) => (
-                    <CardGrid item md={9}>
-                        <OppCard
-                            opp={opp}
-                            key={index}
-                            onClick={() => handleClick(opp)}
-                        />
+                    <CardGrid item md={7} key={index}>
+                        <OppCard opp={opp} onClick={() => handleClick(opp)} />
                     </CardGrid>
                 ))}
             </Container>

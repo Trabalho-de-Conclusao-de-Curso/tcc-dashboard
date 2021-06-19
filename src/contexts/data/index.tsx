@@ -23,7 +23,7 @@ type TypeDataContext = {
     toggleOpp: () => void;
     editOpp: (oppId: string, newData: TypeOpp) => Promise<boolean>;
     loadPosts: (orgId: string) => void;
-    addPost: (newPost: TypePostReq, imgae?: File) => Promise<boolean>;
+    addPost: (newPost: TypePostReq, image: File | null) => Promise<boolean>;
     removePost: (postId: string) => void;
     loadRegistrations: () => void;
 };
@@ -134,7 +134,7 @@ export const DataProvider: React.FC = ({ children }) => {
     }, []);
 
     const addPost = useCallback(
-        async (newPost: TypePostReq, image?: File): Promise<boolean> => {
+        async (newPost: TypePostReq, image: File | null): Promise<boolean> => {
             try {
                 const { data } = await postApi.addPost(newPost);
 

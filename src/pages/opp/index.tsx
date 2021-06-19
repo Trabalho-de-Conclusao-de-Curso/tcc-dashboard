@@ -59,8 +59,8 @@ const Index: React.FC = () => {
                 <OppContainer item md={4}>
                     <InAppView item={opp!} />
                 </OppContainer>
-                <Container item md={4} />
-                <RegsContainer item md={4}>
+                <Container item md={5} />
+                <RegsContainer item md={3}>
                     {opp!.registrations.map(registration => (
                         <RegistrationCard
                             onSeeProfile={() =>

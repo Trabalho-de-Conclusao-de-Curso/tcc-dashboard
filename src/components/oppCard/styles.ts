@@ -57,6 +57,8 @@ export const LblName = styled(Typography)`
 `;
 
 export const LblDescription = styled(Typography)`
+    flex: 1;
+    margin-top: 10px;
     font-family: Roboto Mono;
     font-style: normal;
     font-weight: 300;

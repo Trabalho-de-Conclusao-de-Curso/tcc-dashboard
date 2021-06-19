@@ -48,6 +48,11 @@ export default {
     finish: 'Finalizar',
     selectInterests: 'Selecionar Interesses',
 
+    addPost: 'Criar Post',
+    addImage: 'Adicionar Imagem',
+    publish: 'Publicar',
+    postHint: 'Para criar um novo post, insira as informações abaixo',
+
     edit: 'Editar',
     editProfile: 'Editar Perfil',
     disconnect: 'Desconectar',
