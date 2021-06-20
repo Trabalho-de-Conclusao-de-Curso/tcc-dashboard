@@ -53,6 +53,7 @@ export default {
     publish: 'Publicar',
     postHint: 'Para criar um novo post, insira as informações abaixo',
 
+    changeImage: 'Alterar Imagem',
     edit: 'Editar',
     editProfile: 'Editar Perfil',
     disconnect: 'Desconectar',
@@ -78,6 +79,7 @@ export default {
 
     contact: 'Contato',
 
+    phone: 'Telefone',
     personalData: 'Dados Pessoais',
     editPhoto: 'Editar Foto',
     nameHint: 'Nome social ou de registro',

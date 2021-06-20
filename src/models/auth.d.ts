@@ -43,3 +43,12 @@ export type TypeRegisterRes = {
     error?: number;
     success: bollean;
 };
+
+export type TypeEditProfile = {
+    interests: TypeInterests;
+    name: string;
+    phone: string;
+    description: string;
+    address: string;
+    logo?: string;
+};

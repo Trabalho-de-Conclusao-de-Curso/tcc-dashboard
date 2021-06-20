@@ -1,8 +1,8 @@
 import {
     TypeLoginData,
-    TypeUser,
     TypeRegisterData,
     TypeLoginRes,
+    TypeEditProfile,
 } from '../models/auth';
 import api from './api';
 
@@ -23,7 +23,8 @@ const authApi = {
 
     logout: () => api.post(urls.logout),
 
-    editUser: (data: TypeUser) => api.post(urls.editUser, data),
+    editUser: (userId: string, data: TypeEditProfile) =>
+        api.post(`${urls.editUser}/${userId}`, data),
 
     changePhoto: (data: FormData) => api.post<string>(urls.changePhoto, data),
 };

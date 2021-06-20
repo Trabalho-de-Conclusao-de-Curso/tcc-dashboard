@@ -7,6 +7,7 @@ import {
     TypeToken,
     TypeRegisterData,
     TypeRegisterRes,
+    TypeEditProfile,
 } from '../../models/auth';
 import { authApi } from '../../services';
 import api from '../../services/api';
@@ -15,7 +16,7 @@ type AuthContextData = {
     user: TypeUser | null;
     logged: boolean;
     loading: boolean;
-    editUser: (data: TypeUser, photo?: File) => Promise<boolean>;
+    editUser: (data: TypeEditProfile, photo?: File) => Promise<boolean>;
     logout: () => void;
     login: (data: TypeLoginData) => Promise<TypeRegisterRes>;
     register: (data: TypeRegisterData) => Promise<TypeRegisterRes>;
@@ -84,7 +85,7 @@ export const AuthProvider: React.FC = ({ children }) => {
 
     const editUser = useCallback(
         async (
-            newUser: TypeUser,
+            newUser: TypeEditProfile,
             photo: File | undefined
         ): Promise<boolean> => {
             try {
@@ -97,16 +98,21 @@ export const AuthProvider: React.FC = ({ children }) => {
                     auxData.logo = data;
                 }
 
-                await authApi.editUser(auxData);
+                await authApi.editUser(user!.id, auxData);
 
-                updateUser(auxData);
+                updateUser({
+                    ...user!,
+                    ...auxData,
+                    logo: photo ? URL.createObjectURL(photo) : user!.logo,
+                });
 
                 return Promise.resolve(true);
             } catch (err) {
+                console.log(err);
                 return Promise.resolve(false);
             }
         },
-        []
+        [user]
     );
 
     const login = useCallback(
