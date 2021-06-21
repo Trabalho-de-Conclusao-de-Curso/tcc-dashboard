@@ -128,7 +128,7 @@ const AuthLayout: React.FC = ({ children }) => {
         return classes.lblUnselectedItem;
     };
 
-    if (!logged) return <Redirect to="/login" />;
+    if (!logged || !user) return <Redirect to="/login" />;
 
     return (
         <div className={classes.root}>

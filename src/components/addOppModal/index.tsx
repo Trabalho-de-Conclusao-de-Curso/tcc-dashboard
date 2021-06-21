@@ -81,6 +81,7 @@ const Index: React.FC<PropTypes> = ({ open, onClose }) => {
         setLoading(false);
         onClose();
         loadOpps();
+        setPage(0);
     };
 
     const handleNext = () => {

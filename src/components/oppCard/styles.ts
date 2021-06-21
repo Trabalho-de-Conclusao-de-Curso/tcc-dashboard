@@ -68,6 +68,6 @@ export const LblDescription = styled(Typography)`
 `;
 
 export const BtnEdit = styled(Button)`
-    width: 100px;
+    width: 150px;
     margin-top: 10px;
 `;

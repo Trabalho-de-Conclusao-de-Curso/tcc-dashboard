@@ -49,7 +49,7 @@ const Index: React.FC<PropsType> = ({ opp, onClick }) => {
                 <LblName>{opp.name}</LblName>
                 <LblDescription>{opp.description}</LblDescription>
                 <BtnEdit variant="outlined" color="primary" onClick={onClick}>
-                    {strings.edit}
+                    {strings.seeDetails}
                 </BtnEdit>
             </Content>
         </Container>
