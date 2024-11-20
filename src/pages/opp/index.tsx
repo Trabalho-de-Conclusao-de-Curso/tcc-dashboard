@@ -29,7 +29,7 @@ const Index: React.FC = () => {
                 oppId: opp!.id,
             });
             loadRegistrations();
-        } catch (err) {
+        } catch (err:any) {
             console.log(err);
         }
     };
@@ -48,7 +48,7 @@ const Index: React.FC = () => {
 
             setUser(data);
             setLoadingUser(false);
-        } catch (err) {
+        } catch (err:any) {
             console.log(err);
         }
     };

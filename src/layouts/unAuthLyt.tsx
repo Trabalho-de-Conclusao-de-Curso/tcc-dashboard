@@ -1,12 +1,12 @@
 import React from 'react';
 
-import { Redirect } from 'react-router-dom';
+import { Navigate } from 'react-router-dom';
 import useAuth from '../contexts/auth/useAuth';
 
 const AuthLayout: React.FC = ({ children }) => {
     const { logged } = useAuth();
 
-    if (logged) return <Redirect to="/" />;
+    if (logged) return <Navigate to="/" />;
 
     return <div>{children}</div>;
 };

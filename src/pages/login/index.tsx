@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Grid, Button } from '@material-ui/core';
-import { useHistory } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 import { TypeLoginData } from '../../models/auth';
 import UnAuthLayout from '../../layouts/unAuthLyt';
@@ -23,7 +23,7 @@ import useAuth from '../../contexts/auth/useAuth';
 const Index: React.FC = () => {
     const { strings } = useUi();
     const { login } = useAuth();
-    const history = useHistory();
+    const navigate = useNavigate();
 
     const [loading, setLoading] = useState(false);
     const [errors, setErrors] = useState<{ [key: string]: string }>({});
@@ -73,7 +73,7 @@ const Index: React.FC = () => {
         }
 
         setLoading(false);
-        if (response.success) history.push('/');
+        if (response.success) navigate('/');
     };
 
     const handleChange = (value: string, field: string) => {

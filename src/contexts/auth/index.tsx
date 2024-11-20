@@ -107,7 +107,7 @@ export const AuthProvider: React.FC = ({ children }) => {
                 });
 
                 return Promise.resolve(true);
-            } catch (err) {
+            } catch (err:any) {
                 console.log(err);
                 return Promise.resolve(false);
             }
@@ -128,7 +128,7 @@ export const AuthProvider: React.FC = ({ children }) => {
                 }
 
                 return Promise.resolve({ success: false, error: 4 });
-            } catch (err) {
+            } catch (err:any) {
                 console.log(err);
                 const { code } = err.response.data;
                 return Promise.resolve({ success: false, error: code });
@@ -153,7 +153,7 @@ export const AuthProvider: React.FC = ({ children }) => {
                 await authApi.registerUser(data);
 
                 return Promise.resolve({ success: true });
-            } catch (err) {
+            } catch (err: any) {
                 const { code } = err.response.data;
                 return Promise.resolve({
                     error: code,

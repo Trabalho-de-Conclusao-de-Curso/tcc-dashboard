@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { useHistory } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { Add as AddIcon } from '@material-ui/icons';
 import useData from '../../contexts/data/useData';
 
@@ -12,7 +12,7 @@ import { TypeOpp } from '../../models/opp';
 
 const Index: React.FC = () => {
     const { loadOpps, opps, setOpp } = useData();
-    const history = useHistory();
+    const navigate = useNavigate();
     const [addModal, setAddModal] = useState<boolean>(false);
 
     useEffect(() => {
@@ -21,7 +21,7 @@ const Index: React.FC = () => {
 
     const handleClick = (opp: TypeOpp) => {
         setOpp({ ...opp, registrations: [] });
-        history.push(`/opportunity/${opp.id}`);
+        navigate(`/opportunity/${opp.id}`);
     };
 
     return (

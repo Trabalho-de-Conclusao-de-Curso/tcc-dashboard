@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Grid, Button } from '@material-ui/core';
-import { useHistory } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 import { TypeRegisterData } from '../../models/auth';
 import UnAuthLayout from '../../layouts/unAuthLyt';
@@ -23,7 +23,7 @@ import useAuth from '../../contexts/auth/useAuth';
 const Index: React.FC = () => {
     const { strings } = useUi();
     const { register } = useAuth();
-    const history = useHistory();
+    const navigate = useNavigate();
 
     const [loading, setLoading] = useState(false);
     const [errors, setErrors] = useState<{ [key: string]: string }>({});
@@ -78,7 +78,7 @@ const Index: React.FC = () => {
         }
 
         setLoading(false);
-        if (response.success) history.push('/login');
+        if (response.success) navigate('/login');
     };
 
     const handleChange = (value: string, field: string) => {
@@ -99,6 +99,7 @@ const Index: React.FC = () => {
                         variant="outlined"
                         error={errors.name !== undefined}
                         helperText={errors.name}
+                        {/* */}
                         onChange={({ target: { value } }) =>
                             handleChange(value, 'name')
                         }

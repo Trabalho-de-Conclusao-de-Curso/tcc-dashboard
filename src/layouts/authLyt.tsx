@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Redirect, useHistory } from 'react-router-dom';
+import { Navigate, useLocation, useNavigate } from 'react-router-dom';
 import {
     Drawer,
     Divider,
@@ -116,19 +116,20 @@ const AuthLayout: React.FC = ({ children }) => {
     const { logged, user, logout } = useAuth();
     const classes = useStyles();
     const { strings } = useUi();
-    const history = useHistory();
+    const navigate = useNavigate();
+    const location = useLocation();
 
     const handleNav = (path: string) => {
-        if (history.location.pathname !== path) history.push(path);
+        if (location.pathname !== path) navigate(path);
     };
 
     const handleItemStyle = (path: string): string => {
-        if (history.location.pathname === path) return classes.lblSelectedItem;
+        if (location.pathname === path) return classes.lblSelectedItem;
 
         return classes.lblUnselectedItem;
     };
 
-    if (!logged || !user) return <Redirect to="/login" />;
+    if (!logged || !user) return <Navigate to="/login" />;
 
     return (
         <div className={classes.root}>

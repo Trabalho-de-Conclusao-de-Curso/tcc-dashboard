@@ -43,7 +43,7 @@ export const DataProvider: React.FC = ({ children }) => {
             const { data } = await oppApi.getOpps();
 
             setOpps(data);
-        } catch (err) {
+        } catch (err:any) {
             console.log(err);
         } finally {
             setLoading(false);
@@ -67,7 +67,7 @@ export const DataProvider: React.FC = ({ children }) => {
                 }
 
                 return Promise.resolve(true);
-            } catch (err) {
+            } catch (err:any) {
                 console.log(err);
 
                 return Promise.resolve(false);
@@ -81,7 +81,7 @@ export const DataProvider: React.FC = ({ children }) => {
             await oppApi.removeOpp(oppId);
 
             return Promise.resolve(true);
-        } catch (err) {
+        } catch (err:any) {
             console.log(err);
             return Promise.resolve(false);
         }
@@ -92,7 +92,7 @@ export const DataProvider: React.FC = ({ children }) => {
             if (opp!.open) await oppApi.closeOpp(opp!.id);
             else await oppApi.openOpp(opp!.id);
             setOpp({ ...opp!, open: !opp!.open });
-        } catch (err) {
+        } catch (err:any) {
             console.log(err);
         }
     }, [opp]);
@@ -102,7 +102,7 @@ export const DataProvider: React.FC = ({ children }) => {
             try {
                 await oppApi.editOpp(oppId, newData);
                 return Promise.resolve(true);
-            } catch (err) {
+            } catch (err:any) {
                 console.log(err);
                 return Promise.resolve(false);
             }
@@ -115,7 +115,7 @@ export const DataProvider: React.FC = ({ children }) => {
         try {
             const { data } = await registrationsApi.getRegistrations(opp.id);
             setOpp({ ...opp, registrations: data.registrations });
-        } catch (err) {
+        } catch (err:any) {
             console.log(err);
         }
     }, [opp]);
@@ -126,7 +126,7 @@ export const DataProvider: React.FC = ({ children }) => {
 
             const { data } = await postApi.getPosts();
             setPosts(data);
-        } catch (err) {
+        } catch (err:any) {
             console.log(err);
         } finally {
             setLoading(false);
@@ -146,7 +146,7 @@ export const DataProvider: React.FC = ({ children }) => {
                 }
 
                 return Promise.resolve(true);
-            } catch (err) {
+            } catch (err:any) {
                 console.log(err);
                 return Promise.resolve(false);
             }
@@ -159,7 +159,7 @@ export const DataProvider: React.FC = ({ children }) => {
             try {
                 await postApi.removePost(postId);
                 loadPosts();
-            } catch (err) {
+            } catch (err:any) {
                 console.log(err);
             }
         },
